@@ -1,0 +1,21 @@
+services:
+  web:
+    image: "filament-manager-web:latest"
+    volumes:
+      - ./:/app:z
+    ports:
+      - "3001:3000"
+    entrypoint: ["npm", "run", "dev"]
+
+  db:
+    image: "mariadb:latest"
+    ports:
+      - "3306:3306" 
+    environment:
+      - MARIADB_ROOT_PASSWORD=1234
+    volumes:
+      - filament-manager-db:/var/lib/mysql
+
+
+volumes:
+  filament-manager-db:
