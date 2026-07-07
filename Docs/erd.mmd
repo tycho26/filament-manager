@@ -1,0 +1,31 @@
+erDiagram
+    Filament }o--|| Brand : "produced by"
+    Filament }o--|| Material : "made of"
+    Filament |o--o| Spool : "loaded on"
+    Spool }o--|| Brand : "produced by"
+    Filament {
+        string id PK
+        string brand
+        string material
+        string color
+        int startWeight
+        int currentWeight
+        bool refill
+        string spool
+    }
+
+    Brand {
+        string id PK
+        string name
+    }
+
+    Material{
+        string id PK
+        string name
+    }
+
+    Spool{
+        string id PK
+        string brand
+        int weight
+    }
