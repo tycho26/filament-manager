@@ -11,3 +11,34 @@ generator client {
 datasource db {
   provider = "mysql"
 }
+
+model Filament {
+  id    String     @id @default(uuid())
+  // brand Brand      @relation(fields: [brandId], references: [id])
+  brand String
+  // brandId String
+  // material Material @relation(fields: [materialId], references: [id])
+  material String
+  // materialId String
+  color String
+  startWeight Int
+  currentWeight Int
+  refill        Boolean
+  spool         String     
+}
+
+model Material {
+  id    String    @id @default(uuid())
+  name  String    @unique
+}
+
+model Spool {
+  id    String    @id @default(uuid())
+  brand String    @unique
+  weight    Int
+}
+
+model Brand {
+  id    String    @id @default(uuid())
+  name  String    @unique
+}
