@@ -14,31 +14,36 @@ datasource db {
 
 model Filament {
   id    String     @id @default(uuid())
-  // brand Brand      @relation(fields: [brandId], references: [id])
-  brand String
-  // brandId String
-  // material Material @relation(fields: [materialId], references: [id])
-  material String
-  // materialId String
+  brand Brand      @relation(fields: [brandId], references: [id])
+  brandId String
+  material Material @relation(fields: [materialId], references: [id])
+  materialId String
   color String
   startWeight Int
   currentWeight Int
   refill        Boolean
-  spool         String     
+  spool         Spool   @relation(fields: [spoolId], references: [id])
+  spoolId   String
 }
 
 model Material {
   id    String    @id @default(uuid())
   name  String    @unique
+  filaments Filament[]
+
 }
 
 model Spool {
   id    String    @id @default(uuid())
-  brand String    @unique
+  brand Brand     @relation(fields: [brandId], references: [id])
+  brandId String
   weight    Int
+  filaments Filament[]
 }
 
 model Brand {
   id    String    @id @default(uuid())
   name  String    @unique
+  filaments Filament[]
+  spools  Spool[]
 }
