@@ -38,6 +38,7 @@ model Spool {
   brand Brand     @relation(fields: [brandId], references: [id])
   brandId String
   weight    Int
+  name      String
   filaments Filament[]
 }
 
