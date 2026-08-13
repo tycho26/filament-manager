@@ -9,6 +9,8 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@ant-design/cli": "^6.5.1",
+    "@ant-design/icons": "^6.3.2",
     "@prisma/adapter-mariadb": "^7.8.0",
     "@prisma/client": "^7.8.0",
     "antd": "^6.5.0",
