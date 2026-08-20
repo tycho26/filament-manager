@@ -8,6 +8,16 @@ import { AggregationColor } from "antd/es/color-picker/color";
 const conn: DBConnector = new DBConnector();
 const prisma: PrismaClient = conn.connector;
 
+export async function getAllFilaments(){
+    return prisma.filament.findMany({
+        include: {
+            brand: true,
+            material: true,
+            spool: true
+        }
+    })
+}
+
 export async function createFilament(data:CreateFilamentFormType){
 
     let color: string;
