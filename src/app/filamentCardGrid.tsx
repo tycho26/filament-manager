@@ -1,11 +1,11 @@
 'use client'
 
 import FilamentCard from "@/ui/filamentCard";
+import { filamentsResolved } from "@/utils/types";
 import { Col, Row } from "antd";
-import { Filament } from "../../generated/prisma/client";
 import { use } from "react";
 
-function FilamantCardCol({filament}:{filament:Filament}){
+function FilamantCardCol({filament}:{filament:filamentsResolved}){
     
     return (
         <Col span={3}>
@@ -14,7 +14,7 @@ function FilamantCardCol({filament}:{filament:Filament}){
     )
 }
 
-export default function FilamentCardGrid({filaments}:{filaments:Promise<Array<Filament>>}) {
+export default function FilamentCardGrid({filaments}:{filaments:Promise<Array<filamentsResolved>>}) {
 
 
     const filamentsResolved = use(filaments);

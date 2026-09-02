@@ -1,10 +1,9 @@
 "use client"
-
+import { filamentsResolved } from "@/utils/types";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import { Card, ColorPicker, Image } from "antd";
-import { Filament } from "../../generated/prisma/client";
 
-export default function FilamentCard({filament}) {
+export default function FilamentCard({filament}:{filament:filamentsResolved}) {
 
     return (
 	    // Placeholder image, change later!

@@ -1,6 +1,6 @@
 'use server'
 
-import DBConnector from "@/utils/DBConnection";
+import DBConnector from "../../prisma/DBConnection";
 import { Spool, PrismaClient } from "../../generated/prisma/client";
 
 const conn: DBConnector = new DBConnector();

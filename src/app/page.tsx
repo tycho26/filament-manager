@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { getAllFilaments } from "@/actions/filament";
 import { getAllBrands } from "@/actions/brand";
 import { Brand, Filament, Material, Spool } from "../../generated/prisma/client";
@@ -7,13 +9,14 @@ import ModalGroup from "./modalGroup";
 import FilamentCardGrid from "./filamentCardGrid";
 import { Suspense } from "react";
 import { Card } from "antd";
+import { filamentsResolved } from "@/utils/types";
 
 export default async function Home() {
 
   const brands:Promise<Brand[]> = getAllBrands();
   const materials:Promise<Material[]> = getAllMaterials();
   const spools:Promise<Spool[]> = getAllSpools();
-  const filaments:Promise<Array<Filament>> = getAllFilaments();
+  const filaments:Promise<Array<filamentsResolved>> = getAllFilaments();
 
   
   return (

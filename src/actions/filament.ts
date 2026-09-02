@@ -1,6 +1,6 @@
 'use server'
 
-import DBConnector from "@/utils/DBConnection";
+import DBConnector from "../../prisma/DBConnection";
 import { PrismaClient } from "../../generated/prisma/client";
 import { CreateFilamentFormType } from "@/ui/createFilamentForm";
 import { AggregationColor } from "antd/es/color-picker/color";

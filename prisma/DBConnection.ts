@@ -1,10 +1,10 @@
-import { PrismaClient } from "../../generated/prisma/client";
+import { PrismaClient } from "../generated/prisma/client";
 import { PrismaMariaDb } from "@prisma/adapter-mariadb";
 
 class DBConnector{
 
     private static instance: DBConnector
-    public connector: PrismaClient
+    public connector!: PrismaClient
     constructor() {
         if (DBConnector.instance) {
             return DBConnector.instance

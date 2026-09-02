@@ -13,4 +13,6 @@ RUN mkdir ./app
 
 WORKDIR ./app
 
+EXPOSE 3001
+
 ENTRYPOINT ["npm", "run", "dev"]
