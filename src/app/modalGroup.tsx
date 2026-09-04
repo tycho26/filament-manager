@@ -22,7 +22,4 @@ export default function ModalGroup({brands, materials, spools}:{brands:Promise<B
         </>
     )
 
-    // TODO: Pass state getter and setter to form component
-    // TODO: Wrap CreateFilamentForm in modal
-
 }
