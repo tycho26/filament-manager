@@ -2,7 +2,7 @@ export const dynamic = 'force-dynamic';
 
 import { getAllFilaments } from "@/actions/filament";
 import { getAllBrands } from "@/actions/brand";
-import { Brand, Filament, Material, Spool } from "../../generated/prisma/client";
+import { Brand, Material, Spool } from "../../generated/prisma/client";
 import { getAllMaterials } from "@/actions/material";
 import { getAllSpools } from "@/actions/spool";
 import ModalGroup from "./modalGroup";
@@ -22,7 +22,7 @@ export default async function Home() {
   return (
     <div className="flex flex-col flex-1 p-20 items-left bg-zinc-50 font-sans dark:bg-light">
       <Suspense fallback={<Card loading/>}>
-        <FilamentCardGrid filaments={filaments}/>
+        <FilamentCardGrid filaments={filaments} brands={brands} spools={spools} materials={materials}/>
       </Suspense>
       <ModalGroup brands={brands} spools={spools} materials={materials} />
     </div>
