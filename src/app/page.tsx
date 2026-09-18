@@ -22,7 +22,7 @@ export default async function Home() {
   return (
     <div className="flex flex-col flex-1 p-20 items-left bg-zinc-50 font-sans dark:bg-light">
       <Suspense fallback={<Card loading/>}>
-        <FilamentCardGrid filaments={filaments}/>
+        <FilamentCardGrid filaments={filaments} brands={brands} spools={spools} materials={materials}/>
       </Suspense>
       <ModalGroup brands={brands} spools={spools} materials={materials} />
     </div>
