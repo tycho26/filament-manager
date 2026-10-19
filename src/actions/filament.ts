@@ -68,6 +68,12 @@ export async function createFilament(data:CreateFilamentFormType){
     });
 }
 
+export async function deleteFilament(id:string){
+    await prisma.filament.delete({
+        where:{id:id}
+    })
+}
+
 export async function editFilament(id:string, data:EditFilamentFormType){
 
     let color: string;
