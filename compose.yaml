@@ -6,7 +6,7 @@ services:
     ports:
       - "3001:3001"
     environment:
-      - DATABASE_URL=mariadb://root:1234@db:3306/filament-manager-db-dev
+      - DATABASE_URL=mysql://root:1234@db:3306/filament-manager-db-dev
     entrypoint: ["npm", "run", "dev"]
 
   db:
@@ -15,9 +15,9 @@ services:
       - "3306:3306" 
     environment:
       - MARIADB_ROOT_PASSWORD=1234
+      - MARIADB_DATABASE=filament-manager-db-dev
     volumes:
       - filament-manager-db:/var/lib/mysql
-
 
 volumes:
   filament-manager-db:
