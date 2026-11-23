@@ -76,6 +76,28 @@ export async function createFilament(data:CreateFilamentFormType){
     });
 }
 
+export async function setFilamentSpool(filamentID:string, spoolID:string){
+    await prisma.filament.update({
+        where:{id:filamentID},
+        data:{
+            spool:{
+                connect:{
+                    id:spoolID
+                }
+            }
+        }
+    })
+}
+
+export async function setFilamentWeight(id:string, weight:number){
+    await prisma.filament.update({
+        where:{id:id},
+        data:{
+            currentWeight:weight
+        }
+    })
+}
+
 export async function deleteFilament(id:string){
     await prisma.filament.delete({
         where:{id:id}

@@ -43,7 +43,7 @@ export default function FilamentCardGrid({filaments, brands, spools, materials}:
             </Row>
             <EditFilamentForm key={selectedFilamentID} filamentID={selectedFilamentID} brands={brands} spools={spools} materials={materials} modalState={filamentEditForm} modalSetter={setFilamentEditForm} />
             <DeletePrompt key={selectedFilamentID+"1"} filamentID={selectedFilamentID} modalState={filamentDeletePrompt} modalSetter={setFilamentDeletePrompt}/>
-            <FilamentQuickEdit modalState={filamentQuickEdit} spools={spools}/>
+            <FilamentQuickEdit key={selectedFilamentID+"2"} filamentID={selectedFilamentID} modalState={filamentQuickEdit} spools={spools} modalSetter={setFilamentQuickEdit}/>
         </>
     )
 }

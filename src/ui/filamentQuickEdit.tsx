@@ -2,14 +2,19 @@
 
 import { getFilament } from "@/actions/filament";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons"
-import { ColorPicker, Flex, Form, Input, List, Modal, Segmented, Select } from "antd"
-import { use, useEffect, useState } from "react";
+import { Button, ColorPicker, Flex, Form, Input, List, Modal, Segmented, Select } from "antd"
+import { Dispatch, SetStateAction, use, useEffect, useState } from "react";
 import { filamentsResolved, SelectOptions } from "@/utils/types";
 import { Spool } from "../../generated/prisma/client";
 
 type WeightModeType = "Absolute" | "Relative";
 
-export default function FilamentQuickEdit({modalState, spools}:{modalState:boolean, spools:Promise<Spool[]>}){
+type FilamentQuickEditFormType = {
+    Spool?:string,
+    Weight:number
+}
+
+export default function FilamentQuickEdit({modalState, modalSetter, spools, filamentID}:{modalState:boolean, modalSetter:Dispatch<SetStateAction<boolean>>, spools:Promise<Spool[]>, filamentID:string}){
 
     const [filamentData, setFilamentData] = useState<filamentsResolved>();
     const [weightMode, setWeightMode] = useState<WeightModeType>("Absolute");
@@ -34,17 +39,17 @@ export default function FilamentQuickEdit({modalState, spools}:{modalState:boole
               setFilamentData(filamentResolved);
             }
           }
-          fetchFilament("8ac0172f-505b-49ae-973c-06daa2b9a665"); // Make prop for filamentID
+          fetchFilament(filamentID);
       },[])
 
-      const allSpools = use(spools); // Make prop for spools promise
+      const allSpools = use(spools);
         const spoolSelectOptions:SelectOptions[] =  allSpools.map((spool) =>  ({
             value:spool.id, 
             label:spool.name
           }))
 
     return(
-        <Modal title="Filament quick view" open={modalState}>
+        <Modal title="Filament quick view" open={modalState} onCancel={() => modalSetter(false)} footer={null}>
             <Flex justify="center">
                 <List itemLayout="vertical" header={<b>Information:</b>} bordered>
                     <List.Item>
@@ -77,6 +82,9 @@ export default function FilamentQuickEdit({modalState, spools}:{modalState:boole
                 </Form.Item>
                 <Form.Item label={<b>Weight:</b>}>
                     <Input suffix="grams" type={"number"}/>
+                </Form.Item>
+                <Form.Item>
+                    <Button htmlType="submit" variant="solid">Save</Button>
                 </Form.Item>
             </Form>
         </Modal>
