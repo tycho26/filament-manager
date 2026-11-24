@@ -1,6 +1,6 @@
 'use client'
 
-import { getFilament } from "@/actions/filament";
+import { getFilament, setFilamentSpool, setFilamentWeight } from "@/actions/filament";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons"
 import { Button, ColorPicker, Flex, Form, Input, List, Modal, Segmented, Select } from "antd"
 import { Dispatch, SetStateAction, use, useEffect, useState } from "react";
@@ -10,8 +10,8 @@ import { Spool } from "../../generated/prisma/client";
 type WeightModeType = "Absolute" | "Relative";
 
 type FilamentQuickEditFormType = {
-    Spool?: string,
-    Weight: number
+    spool?: string,
+    weight: number
 }
 
 export default function FilamentQuickEdit({ modalState, modalSetter, spools, filamentID }: { modalState: boolean, modalSetter: Dispatch<SetStateAction<boolean>>, spools: Promise<Spool[]>, filamentID: string }) {
@@ -48,6 +48,32 @@ export default function FilamentQuickEdit({ modalState, modalSetter, spools, fil
         label: spool.name
     }));
 
+    async function onSubmit(form:FilamentQuickEditFormType){
+        if (weightMode == "Absolute"){
+            const spool = allSpools[allSpools.findIndex(spool => spool.id === form.spool)]
+            if(filamentData){
+                if(form.weight){
+                    let trueWeight:number = form.weight - spool.weight;
+                    if(trueWeight < 0){
+                        trueWeight = 0
+                    }
+                    await setFilamentWeight(filamentData.id,trueWeight)
+                }
+                if(form.spool){
+                    await setFilamentSpool(filamentData.id,spool.id)
+                }
+            }
+        }
+        else if(weightMode == "Relative"){
+            if(filamentData){
+                let newWeight:number = filamentData?.currentWeight - form.weight
+                if(newWeight < 0){
+                    newWeight = 0;
+                }
+                setFilamentWeight(filamentData?.id,newWeight)
+            }
+        }
+    }
 
     return (
         <Modal title="Filament quick view" open={modalState} onCancel={() => modalSetter(false)} footer={null}>
@@ -78,11 +104,13 @@ export default function FilamentQuickEdit({ modalState, modalSetter, spools, fil
                     <Segmented defaultValue="Absolute" options={["Absolute", "Relative"]} onChange={(mode: WeightModeType) => setWeightMode(mode)} />
                 </Flex>
                 <p>Selected: {weightMode}</p> {/* Remove later */}
-                <Form.Item hidden={weightMode == "Absolute" ? false : true} name="spool" label={<b>Spool:</b>} initialValue={filamentData?.spoolId}>
-                    <Select disabled={weightMode == "Absolute" ? false : true} style={{ width: 200 }} options={spoolSelectOptions} />
-                </Form.Item>
-                <Form.Item label={<b>Weight:</b>}>
-                    <Input suffix="grams" type={"number"} />
+                {weightMode === "Absolute" && (
+                  <Form.Item name="spool" label={<b>Spool:</b>} initialValue={filamentData?.spoolId}>
+                    <Select style={{ width: 200 }} options={spoolSelectOptions} />
+                  </Form.Item>  
+                )}
+                <Form.Item name="weight" label={<b>Weight:</b>}>
+                    <Input min={0} suffix="grams" type={"number"} />
                 </Form.Item>
                 <Form.Item>
                     <Button htmlType="submit" variant="solid">Save</Button>
