@@ -7,6 +7,7 @@ services:
       - "3001:3001"
     environment:
       - DATABASE_URL=mysql://root:1234@db:3306/filament-manager-db-dev
+      - PORT=3001
     entrypoint: ["npm", "run", "dev"]
 
   db:
